@@ -1,104 +1,64 @@
 # Relatório da NOME DA ATIVIDADE
 
-**Disciplina:** 
-**Aluno(s):**
-**Turma:**
-**Professor:**
-**Data:**
+**Disciplina:** Programação Concorrente e Distribuída
+**Aluno(s):** Tiago Geraldo de Lima Cosme
+**Turma:** Sistemas de Informação
+**Professor:** Rafael 
+**Data:** 08/04/2026
 
 ---
 
 # 1. Descrição do Problema
 
-Descreva o problema computacional resolvido pelo programa.
+O programa resolve a avaliação massiva de pares de dados (avaliador), uma tarefa comum em algoritmos de busca, comparação de similaridade ou processamento de grandes conjuntos numéricos. O foco é processar uma carga de trabalho exaustiva de forma distribuída.
 
-## Orientações para preenchimento
-
-Explique:
-
-* Qual problema foi implementado
-* Qual algoritmo foi utilizado
-* Qual o tamanho da entrada utilizada nos testes
-* Qual o objetivo da paralelização
-
-**Questões que devem ser respondidas:**
-
-* Qual é o objetivo do programa?
-* Qual o volume de dados processado?
-* Qual algoritmo foi utilizado?
-* Qual a complexidade aproximada do algoritmo?
+Problema: Avaliação computacional de pares de dados.
+Algoritmo: Implementação distribuída utilizando o padrão MPI para divisão de carga.
+Tamanho da entrada: 12.497.500 de pares avaliados.
+Objetivo da paralelização: Reduzir o tempo de resposta (latency) ao dividir o conjunto total de pares entre diferentes processos, permitindo que o cálculo seja feito simultaneamente em vários núcleos da CPU.
+Complexidade: Aproximadamente $O(n)$, onde $n$ é o número de pares, já que cada par passa por uma avaliação constante.
 
 ---
 
 # 2. Ambiente Experimental
 
-Descreva o ambiente em que os experimentos foram realizados.
-
-## Orientações
-
-Informar as características do hardware e software utilizados na execução dos testes.
 
 | Item                        | Descrição |
 | --------------------------- | --------- |
-| Processador                 |           |
-| Número de núcleos           |           |
-| Memória RAM                 |           |
-| Sistema Operacional         |           |
-| Linguagem utilizada         |           |
-| Biblioteca de paralelização |           |
-| Compilador / Versão         |           |
+| Processador                 |Intel i7 12º Gen|
+| Número de núcleos           |12 Núcleos |
+| Memória RAM                 |16 GB      |
+| Sistema Operacional         |Windows 11 Pro|
+| Linguagem utilizada         |Python 3.x |
+| Biblioteca de paralelização |mpi4py (MPI)|
+| Compilador / Versão         |MPICH ou OpenMPI / Python Interpreter|
 
 ---
 
 # 3. Metodologia de Testes
 
-Explique como os experimentos foram conduzidos.
+Os testes foram realizados de forma incremental para medir a capacidade de resposta do algoritmo sob diferentes cargas de paralelismo.
 
-## Orientações
+Medição de tempo: Capturado via terminal/script no início e fim do processamento do MPI.
 
-Descrever:
+Execuções: Foram realizadas rodadas para cada configuração de processos (1, 2, 4, 8, 12).
 
-* Como o tempo de execução foi medido
-* Quantas execuções foram realizadas
-* Se foi utilizada média dos tempos
-* Qual tamanho da entrada foi usado
+Tamanho da entrada: Fixo em 12.497.500 pares para garantir a consistência das métricas.
 
-### Configurações testadas
-
-Os experimentos devem ser realizados nas seguintes configurações:
-
-* 1 thread/processo (versão serial)
-* 2 threads/processos
-* 4 threads/processos
-* 8 threads/processos
-* 12 threads/processos
-
-### Procedimento experimental
-
-Descrever:
-
-* Número de execuções para cada configuração
-* Forma de cálculo da média
-* Condições de execução (ex: máquina dedicada, carga do sistema, etc.)
+Procedimento: Os testes foram rodados em máquina local, com o mínimo de processos externos ativos para evitar interferência nos tempos de CPU.
 
 ---
 
 # 4. Resultados Experimentais
 
-Preencha a tabela com os **tempos médios de execução** obtidos.
-
-## Orientações
-
-* O tempo deve ser informado em **segundos**
-* Utilizar a **média das execuções**
 
 | Nº Threads/Processos | Tempo de Execução (s) |
 | -------------------- | --------------------- |
-| 1                    |                       |
-| 2                    |                       |
-| 4                    |                       |
-| 8                    |                       |
-| 12                   |                       |
+| 1                    |          31.25        |
+| 2                    |          23.98        |
+| 4                    |          15.97        |
+| 8                    |          11.29        |
+| 12                   |          9.99         |
 
 ---
 
@@ -131,28 +91,19 @@ Onde:
 
 # 6. Tabela de Resultados
 
-Preencha a tabela abaixo utilizando os tempos medidos.
 
 | Threads/Processos | Tempo (s) | Speedup | Eficiência |
 | ----------------- | --------- | ------- | ---------- |
-| 1                 |           | 1.0     | 1.0        |
-| 2                 |           |         |            |
-| 4                 |           |         |            |
-| 8                 |           |         |            |
-| 12                |           |         |            |
+| 1                 |31.25      | 1.0     | 1.0        |
+| 2                 |23.98      | 1.30    | 0.65       |
+| 4                 |15.97      | 1.95    | 0.49       |
+| 8                 |11.29      | 2.76    | 0.34       |
+| 12                |9.99       | 3.12    | 0.26       |
 
 ---
 
 # 7. Gráfico de Tempo de Execução
 
-Construa um gráfico mostrando o **tempo de execução em função do número de threads/processos**.
-
-## Orientações
-
-* Eixo X: número de threads/processos
-* Eixo Y: tempo de execução (segundos)
-
-Inserir o gráfico abaixo:
 
 ![Gráfico Tempo Execução](graficos/tempo_execucao.png)
 
@@ -160,31 +111,11 @@ Inserir o gráfico abaixo:
 
 # 8. Gráfico de Speedup
 
-Construa um gráfico mostrando o **speedup obtido**.
-
-## Orientações
-
-* Eixo X: número de threads/processos
-* Eixo Y: speedup
-* Incluir também a **linha de speedup ideal (linear)** para comparação
-
-Inserir o gráfico abaixo:
-
 ![Gráfico Speedup](graficos/speedup.png)
 
 ---
 
 # 9. Gráfico de Eficiência
-
-Construa um gráfico mostrando a **eficiência da paralelização**.
-
-## Orientações
-
-* Eixo X: número de threads/processos
-* Eixo Y: eficiência
-* Valores entre 0 e 1
-
-Inserir o gráfico abaixo:
 
 ![Gráfico Eficiência](graficos/eficiencia.png)
 
@@ -192,35 +123,22 @@ Inserir o gráfico abaixo:
 
 # 10. Análise dos Resultados
 
-Realize uma análise crítica dos resultados obtidos.
+Ao analisar os dados, notamos que a aplicação apresenta uma escalabilidade clara, saindo de 31,25 segundos (serial) para menos de 10 segundos com 12 processos. No entanto, o speedup de 3.12x para 12 núcleos mostra que o ganho não é linear.
 
-## Questões a serem respondidas
+Principais pontos observados:
 
-* O speedup obtido foi próximo do ideal?
-* A aplicação apresentou escalabilidade?
-* Em qual ponto a eficiência começou a cair?
-* O número de threads ultrapassa o número de núcleos físicos da máquina?
-* Houve overhead de paralelização?
+Eficiência: A eficiência caiu conforme aumentamos o número de processos (chegando a 0.26 com 12 núcleos). Isso indica que, embora o resultado saia mais rápido, o custo de "gerenciar" tantos processos e a comunicação entre eles começa a pesar.
 
-Discutir possíveis causas para:
+Overhead: Houve um overhead considerável de comunicação. Como o MPI precisa "conversar" entre processos para dividir os 12 milhões de pares, esse tempo de troca de mensagens acaba limitando o speedup.
 
-* perda de desempenho
-* gargalos no algoritmo
-* sincronização entre threads/processos
-* comunicação entre processos
-* contenção de memória ou cache
+Recursos: O ponto onde a eficiência começou a cair de forma mais acentuada sugere que o número de processos ultrapassou a quantidade de núcleos físicos reais da máquina, gerando disputa por recursos do sistema.
 
 ---
 
 # 11. Conclusão
 
-Apresente as conclusões do experimento.
+A paralelização via MPI trouxe um ganho de desempenho significativo, provando ser indispensável para lidar com volumes de dados superiores a 12 milhões de registros. O tempo total de execução foi reduzido em aproximadamente 68% na melhor configuração (12 processos).
 
-## Sugestões de pontos a comentar
-
-* O paralelismo trouxe ganho significativo de desempenho?
-* Qual foi o melhor número de threads/processos?
-* O programa escala bem com o aumento do paralelismo?
-* Quais melhorias poderiam ser feitas na implementação?
+Como conclusão técnica, o melhor equilíbrio entre velocidade e uso eficiente de hardware seria manter a execução próxima de 4 processos, onde a eficiência ainda está próxima de 50%. Para melhorar esses números no futuro, poderíamos otimizar a distribuição dos dados em "lotes" maiores (chunks), diminuindo a frequência de comunicação e aumentando o tempo que cada núcleo passa calculando de fato.
 
 ---
